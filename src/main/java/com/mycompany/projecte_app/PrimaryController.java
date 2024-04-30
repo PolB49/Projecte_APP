@@ -34,11 +34,11 @@ public class PrimaryController {
         App.setRoot("secondary");
     }
     
-    public void ValidarUsuari() throws IOException {
+    public void ValidarCambrer() throws IOException {
         if (!TextUsuari.getText().isEmpty() &&  !TextContrasenya.getText().isEmpty()) {
             String usuari = TextUsuari.getText();
             String contrasenya = TextContrasenya.getText();
-            boolean ok = gestiodades.consultarUsuari(usuari, contrasenya);
+            boolean ok = gestiodades.consultarCambrer(usuari, contrasenya);
         
             if (ok == true) { //Passar de pestanya a l'inici de sessió
                 this.IniciSessio();

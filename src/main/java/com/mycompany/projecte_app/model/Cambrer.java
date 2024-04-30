@@ -9,23 +9,23 @@ package com.mycompany.projecte_app.model;
  * @author alumne
  */
 public class Cambrer {
-    private int ID_C;
-    private String Contrasenya;
+    
     private String Nom;
+    private String Contrasenya;
 
     //Constructor temporal
-    public Cambrer(String Contrasenya, String Nom) {
-        this.Contrasenya = Contrasenya;
+    public Cambrer(String Nom, String Contrasenya) {
         this.Nom = Nom;
-    }
-
-    public String getContrasenya() {
-        return Contrasenya;
+        this.Contrasenya = Contrasenya;
     }
 
     public String getNom() {
         return Nom;
     }
+
+    public String getContrasenya() {
+        return Contrasenya;
+    }
     
-    //PROVAAAA
+    
 }

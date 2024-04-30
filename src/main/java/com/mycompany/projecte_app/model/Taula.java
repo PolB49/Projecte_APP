@@ -10,25 +10,21 @@ package com.mycompany.projecte_app.model;
  */
 public class Taula {
     
-    private int ID_T;
-    private String Numero_Taula;
+    private String Nom_Taula;
     private int Num_Clients;
-    private int ID_C;
+    private String Cambrer_associat;
 
-    public Taula(int ID_T, String Numero_Taula, int Num_Clients, int ID_C) {
-        this.ID_T = ID_T;
-        this.Numero_Taula = Numero_Taula;
+    public Taula(String Nom_Taula, int Num_Clients, String Cambrer_associat) {
+        this.Nom_Taula = Nom_Taula;
         this.Num_Clients = Num_Clients;
-        this.ID_C = ID_C;
+        this.Cambrer_associat = Cambrer_associat;
     }
 
     @Override
     public String toString() {
-        return Numero_Taula;
+        return Nom_Taula;
     }
     
-    
-    
-    
-    
 }
+
+

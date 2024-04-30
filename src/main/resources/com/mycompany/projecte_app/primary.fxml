@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="546.0" prefWidth="754.0" spacing="20.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.projecte_app.PrimaryController">
+<VBox alignment="CENTER" prefHeight="546.0" prefWidth="754.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.projecte_app.PrimaryController">
    <children>
       <AnchorPane prefHeight="506.0" prefWidth="744.0">
          <children>
@@ -37,7 +37,7 @@
                         <Insets left="100.0" />
                      </GridPane.margin>
                   </Label>
-                  <Button fx:id="primaryButton2" onAction="#ValidarUsuari" text="Iniciar Sessio" GridPane.rowIndex="2">
+                  <Button fx:id="primaryButton2" onAction="#ValidarCambrer" text="Iniciar Sessio" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets bottom="100.0" left="100.0" />
                      </GridPane.margin>

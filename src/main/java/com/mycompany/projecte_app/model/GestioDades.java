@@ -26,7 +26,7 @@ public class GestioDades {
     
         public static ObservableList<Taula> llistaTaules() { //TERCIARY CONTROLLER - Guardar les taules del restaurant desde la BD a una ObservableList
         ObservableList<Taula> llistaTaules = FXCollections.observableArrayList();
-        String sql = "SELECT ID_T, Numero_Taula, Num_Clients, ID_C FROM Taula";
+        String sql = "SELECT Nom_Taula, Num_Clients, Cambrer_associat FROM Taula";
         //String sql="select nom from usuaris";
         Connection connection = new Connexio_BD().connecta();
         try {
@@ -35,10 +35,9 @@ public class GestioDades {
             while (resultSet.next()) {
                 llistaTaules.add(
                         new Taula(
-                                resultSet.getInt(1),
-                                resultSet.getString(2),
-                                resultSet.getInt(3),
-                                resultSet.getInt(4)
+                                resultSet.getString(1),
+                                resultSet.getInt(2),
+                                resultSet.getString(3)
                         )
                 );
             }
@@ -53,7 +52,7 @@ public class GestioDades {
         
         public static ObservableList<Producte> llistaProductes() { //TERCIARY CONTROLLER - Guardar els productes del restaurant desde la BD a una ObservableList
         ObservableList<Producte> llistaProductes = FXCollections.observableArrayList();
-        String sql = "SELECT ID_P, Nom, Preu FROM Producte";
+        String sql = "SELECT Nom, Preu FROM Producte";
         //String sql="select nom from usuaris";
         Connection connection = new Connexio_BD().connecta();
         try {
@@ -62,9 +61,8 @@ public class GestioDades {
             while (resultSet.next()) {
                 llistaProductes.add(
                         new Producte(
-                                resultSet.getInt(1),
-                                resultSet.getString(2),
-                                resultSet.getDouble(3)
+                                resultSet.getString(1),
+                                resultSet.getDouble(2)
                         )
                 );
             }
@@ -85,15 +83,15 @@ public class GestioDades {
         
         
     
-     public boolean consultarUsuari(String Nom, String Contrasenya) { //PRIMARY CONTROLLER - Comprovar si l'usuari existeix a la BD
+     public boolean consultarCambrer(String Nom, String Contrasenya) { //PRIMARY CONTROLLER - Comprovar si l'usuari existeix a la BD
          boolean ok = false; //Boolea que comprovarà si les dades passades als TextFields coincideixen amb dades de la BD
         Cambrer cambrer = null;
-        String sql = "select Contrasenya, Nom from Cambrer where Contrasenya=? and Nom=?"; //Consulta SQL on els "?" representen les variables del codi JAVA
+        String sql = "SELECT Nom, Contrasenya FROM Cambrer where Nom=? and Contrasenya=?"; //Consulta SQL on els "?" representen les variables del codi JAVA
         Connection connection = new Connexio_BD().connecta(); // Connexió amb la base de dades
         try {
             PreparedStatement ordre = connection.prepareStatement(sql);
-            ordre.setString(1, Contrasenya);
-            ordre.setString(2, Nom);
+            ordre.setString(1, Nom);
+            ordre.setString(2, Contrasenya);
             ResultSet resultSet = ordre.executeQuery(); //Comprova si les dades introduides i les de la BD coincideixen
             if (resultSet.next()) { //Si coincideixen fes que el boleà sigui true
                 ok = true;
@@ -110,14 +108,14 @@ public class GestioDades {
         return ok; //Retorna el valor del booleà
     }
      
-     public static boolean afegeixUsuari(Cambrer cambrer) throws SQLException, FileNotFoundException, IOException { //SECONDARY CONTROLLER - Afegir un nou usuari a la BD
+     public static boolean afegeixCambrer(Cambrer cambrer) throws SQLException, FileNotFoundException, IOException { //SECONDARY CONTROLLER - Afegir un nou usuari a la BD
         boolean ok = false;
         Connection connection = new Connexio_BD().connecta();
-        String sql = "INSERT INTO Cambrer (Contrasenya, Nom) VALUES (?,?)";
+        String sql = "INSERT INTO Cambrer (Nom, Contrasenya) VALUES (?,?)";
         PreparedStatement ordre = connection.prepareStatement(sql);
         try {
-            ordre.setString(1, cambrer.getContrasenya());
-            ordre.setString(2, cambrer.getNom());
+            ordre.setString(1, cambrer.getNom());
+            ordre.setString(2, cambrer.getContrasenya());
             ordre.execute();
             ok = true;
 

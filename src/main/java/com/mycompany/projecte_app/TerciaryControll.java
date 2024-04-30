@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 
 public class TerciaryControll {
 //TAULELL PRINCIPAL AFEGIR
@@ -14,6 +15,12 @@ public class TerciaryControll {
     ComboBox ComboTaula;
     @FXML
     ComboBox ComboProducte;
+    @FXML
+    TextField NumeroClients;
+    @FXML
+    TextField QuantitatProducte;
+    @FXML
+    TextField CambrerAssociat;
     @FXML
     ListView TextCompte;
     

@@ -31,8 +31,8 @@ public class SecondaryController {
     
     public void afegir() throws SQLException, FileNotFoundException, IOException {
         if (!TextUsuariRegistre.getText().isEmpty() && !TextContrasenyaRegistre.getText().isEmpty()) {
-            Cambrer cambrer = new Cambrer(TextContrasenyaRegistre.getText(), TextUsuariRegistre.getText());
-            boolean ok = GestioDades.afegeixUsuari(cambrer);
+            Cambrer cambrer = new Cambrer(TextUsuariRegistre.getText(), TextContrasenyaRegistre.getText());
+            boolean ok = GestioDades.afegeixCambrer(cambrer);
             
             if (ok == true) {
                 this.Registrarse();

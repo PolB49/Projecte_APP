@@ -10,19 +10,17 @@ package com.mycompany.projecte_app.model;
  */
 public class Producte {
    
-    private int ID_P;
     private String Nom;
     private double Preu;
 
-    public Producte(int ID_P, String Nom, double Preu) {
-        this.ID_P = ID_P;
+    public Producte(String Nom, double Preu) {
         this.Nom = Nom;
         this.Preu = Preu;
     }
 
     @Override
     public String toString() {
-        return Nom + " - " + Preu;
+        return Nom;
     }
     
     
