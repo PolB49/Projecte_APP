@@ -23,7 +23,7 @@
             <TextField fx:id="QuantitatProducte" layoutX="489.0" layoutY="66.0" />
             <Label layoutX="24.0" layoutY="70.0" prefHeight="17.0" prefWidth="96.0" text="Numero Clients:" />
             <TextField fx:id="NumeroClients" layoutX="130.0" layoutY="66.0" />
-            <Button layoutX="314.0" layoutY="143.0" mnemonicParsing="false" text="Afegir" />
+            <Button layoutX="314.0" layoutY="143.0" mnemonicParsing="false" onAction="#BotoAfegir" text="Afegir" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="353.0" prefWidth="678.0">

@@ -24,6 +24,11 @@ public class Taula {
     public String toString() {
         return Nom_Taula;
     }
+
+    public String getNom_Taula() {
+        return Nom_Taula;
+    }
+    
     
 }
 

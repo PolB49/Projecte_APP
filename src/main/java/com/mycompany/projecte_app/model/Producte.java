@@ -22,6 +22,16 @@ public class Producte {
     public String toString() {
         return Nom;
     }
+
+    public String getNom() {
+        return Nom;
+    }
+
+    public double getPreu() {
+        return Preu;
+    }
+    
+    
     
     
 }

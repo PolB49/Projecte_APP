@@ -19,13 +19,26 @@ public class Cambrer {
         this.Contrasenya = Contrasenya;
     }
 
+    public Cambrer() {
+    }
+
     public String getNom() {
-        return Nom;
+        return this.Nom;
     }
 
     public String getContrasenya() {
         return Contrasenya;
     }
+
+    public void setNom(String Nom) {
+        this.Nom = Nom;
+    }
+
+    public void setContrasenya(String Contrasenya) {
+        this.Contrasenya = Contrasenya;
+    }
+    
+    
     
     
 }

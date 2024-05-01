@@ -16,7 +16,7 @@ public class PrimaryController {
     //Declarar la variable ID_C
     //private int ID_C = 0;
 
-    GestioDades gestiodades = new GestioDades();
+     GestioDades gestiodades = new GestioDades(); //MOLT IMPORTANT -- INSTANCIAR LA CLASSE
     //  Connexio connexio = new Connexio();
     
     @FXML
@@ -36,9 +36,9 @@ public class PrimaryController {
     
     public void ValidarCambrer() throws IOException {
         if (!TextUsuari.getText().isEmpty() &&  !TextContrasenya.getText().isEmpty()) {
-            String usuari = TextUsuari.getText();
-            String contrasenya = TextContrasenya.getText();
-            boolean ok = gestiodades.consultarCambrer(usuari, contrasenya);
+            String Nom = TextUsuari.getText();
+            String Contrasenya = TextContrasenya.getText();
+            boolean ok = gestiodades.consultarCambrer(Nom, Contrasenya);
         
             if (ok == true) { //Passar de pestanya a l'inici de sessió
                 this.IniciSessio();

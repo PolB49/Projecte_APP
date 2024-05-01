@@ -14,6 +14,8 @@ import javafx.scene.control.TextField;
 public class SecondaryController {
     //REGISTRE DE CAMBRER
     
+       GestioDades gestiodades = new GestioDades(); //MOLT IMPORTANT -- INSTANCIAR LA CLASSE
+    
     @FXML
     TextField TextUsuariRegistre;
     @FXML
@@ -31,8 +33,9 @@ public class SecondaryController {
     
     public void afegir() throws SQLException, FileNotFoundException, IOException {
         if (!TextUsuariRegistre.getText().isEmpty() && !TextContrasenyaRegistre.getText().isEmpty()) {
-            Cambrer cambrer = new Cambrer(TextUsuariRegistre.getText(), TextContrasenyaRegistre.getText());
-            boolean ok = GestioDades.afegeixCambrer(cambrer);
+           String Nom = TextUsuariRegistre.getText();
+           String Contrasenya = TextContrasenyaRegistre.getText();
+            boolean ok = gestiodades.afegeixCambrer(Nom, Contrasenya);
             
             if (ok == true) {
                 this.Registrarse();
