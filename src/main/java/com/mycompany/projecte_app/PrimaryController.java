@@ -13,11 +13,7 @@ import javafx.scene.control.TextField;
 public class PrimaryController {
     //INICI DE SESSIÓ
     
-    //Declarar la variable ID_C
-    //private int ID_C = 0;
-
      GestioDades gestiodades = new GestioDades(); //MOLT IMPORTANT -- INSTANCIAR LA CLASSE
-    //  Connexio connexio = new Connexio();
     
     @FXML
     TextField TextUsuari;
@@ -34,7 +30,7 @@ public class PrimaryController {
         App.setRoot("secondary");
     }
     
-    public void ValidarCambrer() throws IOException {
+    public void ValidarCambrer() throws IOException { //Comprovar si l'usuari existeix a la BD
         if (!TextUsuari.getText().isEmpty() &&  !TextContrasenya.getText().isEmpty()) {
             String Nom = TextUsuari.getText();
             String Contrasenya = TextContrasenya.getText();

@@ -21,13 +21,93 @@ import javafx.collections.ObservableList;
  */
 public class GestioDades {
     
+    //METODES QUE S'EXECUTEN AL INICIALITZAR LA APP
+    
+    public void borrarComanda() {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    try {
+        connection = new Connexio_BD().connecta();
+        String sql = "DELETE FROM Comanda";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+    
+    //PRIMARY CONTROLLER
+    
+    public static Cambrer CambrerActual = new Cambrer(); //Declarar una variable buida de la classe Cambrer que guardara el cambrer que esta fent servir l'aplicació
+    
+    public boolean consultarCambrer(String Nom, String Contrasenya) { //PRIMARY CONTROLLER - Comprovar si l'usuari existeix a la BD
+         boolean ok = false; //Boolea que comprovarà si les dades passades als TextFields coincideixen amb dades de la BD
+        String sql = "SELECT Nom, Contrasenya FROM Cambrer where Nom=? and Contrasenya=?"; //Consulta SQL on els "?" representen les variables del codi JAVA
+        Connection connection = new Connexio_BD().connecta(); // Connexió amb la base de dades
+        try {
+            PreparedStatement ordre = connection.prepareStatement(sql);
+            ordre.setString(1, Nom);
+            ordre.setString(2, Contrasenya);
+            ResultSet resultSet = ordre.executeQuery(); //Comprova si les dades introduides i les de la BD coincideixen
+            if (resultSet.next()) { //Si coincideixen fes que el boleà sigui true
+                ok = true;
+                CambrerActual.setNom(Nom);
+                CambrerActual.setContrasenya(Contrasenya);
+                System.out.println("CAMBRER CONSULTAT: " + CambrerActual.getNom()); // Añade esta línea para verificar
+            }
+        } catch (SQLException e) {
+            System.out.println("Error SQL:" + e.getMessage());
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                System.out.println("Error:" + e.getMessage());
+            }
+        }
+        return ok; //Retorna el valor del booleà
+    }
+    
+       //SECNDARY CONTROLLER
+    
+     public boolean afegeixCambrer(String Nom ,String Contrasenya) throws SQLException, FileNotFoundException, IOException { //SECONDARY CONTROLLER - Afegir un nou usuari a la BD
+        boolean ok = false;
+        Connection connection = new Connexio_BD().connecta();
+        String sql = "INSERT INTO Cambrer (Nom, Contrasenya) VALUES (?,?)";
+        PreparedStatement ordre = connection.prepareStatement(sql);
+        try {
+            ordre.setString(1, Nom);
+            ordre.setString(2, Contrasenya);
+            ordre.execute();
+            ok = true;
+            CambrerActual.setNom(Nom);
+            CambrerActual.setContrasenya(Contrasenya);
+
+        } catch (SQLException throwables) {
+            System.out.println("Error:" + throwables.getMessage());
+        }
+
+        return ok;
+    }
+     
+      //TERCIARY CONTROLLER
+     
     private ObservableList <Taula> llistaTaules;
     private ObservableList <Producte> llistaProductes;
     
         public ObservableList<Taula> llistaTaules() { //TERCIARY CONTROLLER - Guardar les taules del restaurant desde la BD a una ObservableList
         ObservableList<Taula> llistaTaules = FXCollections.observableArrayList();
         String sql = "SELECT Nom_Taula, Num_Clients, Cambrer_associat FROM Taula";
-        //String sql="select nom from usuaris";
         Connection connection = new Connexio_BD().connecta();
         try {
             Statement ordre = connection.createStatement();
@@ -74,99 +154,129 @@ public class GestioDades {
         }
         return llistaProductes;
     }
-        
-        
-        //Metode del botó afegir --> Vincular la taula amb el producte i la quantitat per passar-ho dins de la taula Comanda de la BD
-        //
-        
-        
-        
-        private static Cambrer CambrerActual = new Cambrer(); //Declarar una variable buida de la classe Cambrer
     
-     public boolean consultarCambrer(String Nom, String Contrasenya) { //PRIMARY CONTROLLER - Comprovar si l'usuari existeix a la BD
-         boolean ok = false; //Boolea que comprovarà si les dades passades als TextFields coincideixen amb dades de la BD
-        String sql = "SELECT Nom, Contrasenya FROM Cambrer where Nom=? and Contrasenya=?"; //Consulta SQL on els "?" representen les variables del codi JAVA
-        Connection connection = new Connexio_BD().connecta(); // Connexió amb la base de dades
-        try {
-            PreparedStatement ordre = connection.prepareStatement(sql);
-            ordre.setString(1, Nom);
-            ordre.setString(2, Contrasenya);
-            ResultSet resultSet = ordre.executeQuery(); //Comprova si les dades introduides i les de la BD coincideixen
-            if (resultSet.next()) { //Si coincideixen fes que el boleà sigui true
-                ok = true;
-                CambrerActual.setNom(Nom);
-                CambrerActual.setContrasenya(Contrasenya);
-                System.out.println("CAMBRER CONSULTAT: " + CambrerActual.getNom()); // Añade esta línea para verificar
-            }
-        } catch (SQLException e) {
-            System.out.println("Error SQL:" + e.getMessage());
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                System.out.println("Error:" + e.getMessage());
-            }
-        }
-        return ok; //Retorna el valor del booleà
-    }
-     
-     public boolean afegeixCambrer(String Nom ,String Contrasenya) throws SQLException, FileNotFoundException, IOException { //SECONDARY CONTROLLER - Afegir un nou usuari a la BD
-        boolean ok = false;
-        Connection connection = new Connexio_BD().connecta();
-        String sql = "INSERT INTO Cambrer (Nom, Contrasenya) VALUES (?,?)";
-        PreparedStatement ordre = connection.prepareStatement(sql);
-        try {
-            ordre.setString(1, Nom);
-            ordre.setString(2, Contrasenya);
-            ordre.execute();
-            ok = true;
-            CambrerActual.setNom(Nom);
-            CambrerActual.setContrasenya(Contrasenya);
-
-        } catch (SQLException throwables) {
-            System.out.println("Error:" + throwables.getMessage());
-        }
-
-        return ok;
-    }
-    
-    public boolean actualizarNumClients(Taula taula, int numClients) { //TERCIARY CONTROLLER --> Actualitzar la taula Taula de la base de dades per actualitzar el nombre de clients actual
-        boolean ok1 = false;
+        public boolean actualizarNumClients(Taula taula, int numClients) { //TERCIARY CONTROLLER --> Actualitzar la taula Taula de la base de dades per actualitzar el nombre de clients actual
+            boolean ok1 = false;
         
-        try (Connection connection = new Connexio_BD().connecta()) {
-            String sql = "UPDATE Taula SET Num_Clients = ? WHERE Nom_Taula = ?";
-            PreparedStatement ordre = connection.prepareStatement(sql);
-                ordre.setInt(1, numClients);
-                ordre.setString(2, taula.getNom_Taula());
-                ordre.execute();
+            try (Connection connection = new Connexio_BD().connecta()) {
+                String sql = "UPDATE Taula SET Num_Clients = ? WHERE Nom_Taula = ?";
+                PreparedStatement ordre = connection.prepareStatement(sql);
+                    ordre.setInt(1, numClients);
+                    ordre.setString(2, taula.getNom_Taula());
+                    ordre.execute();
                 
-                ok1 = true;
-        } catch (SQLException e) {
-            e.printStackTrace();
+                    ok1 = true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return ok1;
         }
-        
-        return ok1;
-    }
     
-    public boolean afegirComanda(Taula taula, Producte producte, int quantitat) { //TERCIARY CONTROLLER --> Afegir una nova comanda a la taula Comanda de la BD
-        boolean ok2 = false;
-        
+        public boolean afegirComanda(Taula taula, Producte producte, int quantitat) { //TERCIARY CONTROLLER --> Afegir una nova comanda a la base de dades o actualitzar la anterior si la taula i el producte coincideixen
+            boolean ok2 = false;
+    
         try (Connection conn = new Connexio_BD().connecta()) {
-            String sql = "INSERT INTO Comanda (Cambrer, Taula, Producte, Quantitat) VALUES (?, ?, ?, ?)";
-            PreparedStatement ordre = conn.prepareStatement(sql);
-            ordre.setString(1, CambrerActual.getNom());
-            System.out.println("CAMBRER AMB EL NOM ACTUAL: " + CambrerActual.getNom());
-            ordre.setString(2, taula.getNom_Taula());
-            ordre.setString(3, producte.getNom());
-            ordre.setInt(4, quantitat);
-            ordre.execute();
+            String sql = "SELECT * FROM Comanda WHERE Taula = ? AND Producte = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, taula.getNom_Taula());
+            preparedStatement.setString(2, producte.getNom());
+            ResultSet resultSet = preparedStatement.executeQuery();
+        
+            if (resultSet.next()) { // Si ja existeix una comanda en aquella taula i producte
+                int quantitatActual = resultSet.getInt("Quantitat");
+                int quantitatTotal = quantitatActual + quantitat;
             
-            ok2 = true;
+                sql = "UPDATE Comanda SET Cambrer = ?, Quantitat = ? WHERE Taula = ? AND Producte = ?";
+                preparedStatement = conn.prepareStatement(sql);
+                preparedStatement.setString(1, CambrerActual.getNom());
+                preparedStatement.setInt(2, quantitatTotal);
+                preparedStatement.setString(3, taula.getNom_Taula());
+                preparedStatement.setString(4, producte.getNom());
+                preparedStatement.executeUpdate();
+                
+            } else { // Si no existeix una comanda amb aquesta taula i producte, crear-ne una nova
+                sql = "INSERT INTO Comanda (Cambrer, Taula, Producte, Quantitat) VALUES (?, ?, ?, ?)";
+                preparedStatement = conn.prepareStatement(sql);
+                preparedStatement.setString(1, CambrerActual.getNom());
+                preparedStatement.setString(2, taula.getNom_Taula());
+                preparedStatement.setString(3, producte.getNom());
+                preparedStatement.setInt(4, quantitat);
+                preparedStatement.executeUpdate();
+            }
+        
+            ok2 = true; // Marca la operación como exitosa
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
-        return ok2;
+            return ok2;
+        }
+
+    
+    public double ObtenirPreuTotalTaula(Taula taulaSeleccionada) { //TERCIARY CONTROLLER --> Obtenir la suma dels preus dels productes * la quantitat i donar el preu total de la taula
+    double preuTotal = 0.0;
+    
+     try (Connection connection = new Connexio_BD().connecta()) {
+                String sql = "SELECT SUM(p.Preu * c.Quantitat) AS Total " +
+                                    "FROM Comanda c " +
+                                    "JOIN Producte p ON c.Producte = p.Nom " +
+                                    "WHERE c.Taula = ?";
+                
+                PreparedStatement ordre = connection.prepareStatement(sql);
+                ordre = connection.prepareStatement(sql);
+                ordre.setString(1, taulaSeleccionada.getNom_Taula());
+                ResultSet resultSet = ordre.executeQuery();
+                
+        if (resultSet.next()) {
+            preuTotal = resultSet.getDouble("Total");
+        }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+    return preuTotal;
+}
+    
+
+    public ObservableList<Comanda> ObtenirComandesPerTaula(Taula Taula) {
+    ObservableList<Comanda> comandes = FXCollections.observableArrayList();
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    ResultSet resultSet = null;
+    try {
+        connection = new Connexio_BD().connecta();
+        String sql = "SELECT * FROM Comanda WHERE Taula = ?";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, Taula.getNom_Taula());
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            //Emmagatzema cada dada en forma de objecte per despres juntar-les en una altra classe anomenada "Comanda"
+            
+            Taula taula = new Taula(resultSet.getString("Taula"), 0, null);
+            Producte producte = new Producte(resultSet.getString("Producte"), 0.0);
+            int quantitat = resultSet.getInt("Quantitat");
+            
+            // De les dades recuperades de la BD crea una nova comanda i afegeix-la al ObservableList de comandes
+            Comanda comanda = new Comanda(taula, producte, quantitat);
+            // Agrega la comanda a la lista
+            comandes.add(comanda);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-     
+    return comandes;
+}
+
 }

@@ -23,6 +23,24 @@ public class Comanda {
     public String toString() {
         return "Producte: " + ProducteSeleccionat + "  -  " + "Preu: " + ProducteSeleccionat.getPreu() + "  -  "  + "Quantitat: " + quantitatProducte;
     }
+
+    public Taula getTaulaSeleccionada() {
+        return TaulaSeleccionada;
+    }
+
+    public Producte getProducteSeleccionat() {
+        return ProducteSeleccionat;
+    }
+
+    public int getQuantitatProducte() {
+        return quantitatProducte;
+    }
+
+    public void setQuantitatProducte(int quantitatProducte) {
+        this.quantitatProducte = quantitatProducte;
+    }
+    
+    
     
     
 }

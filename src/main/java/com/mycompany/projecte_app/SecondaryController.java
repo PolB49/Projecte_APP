@@ -21,6 +21,7 @@ public class SecondaryController {
     @FXML
     TextField TextContrasenyaRegistre;
 
+    //Gestió de Controladors
     @FXML
     private void IniciSessio() throws IOException {
         App.setRoot("primary");
@@ -31,7 +32,7 @@ public class SecondaryController {
         App.setRoot("terciary");
     }
     
-    public void afegir() throws SQLException, FileNotFoundException, IOException {
+    public void afegir() throws SQLException, FileNotFoundException, IOException { //Afegir un nou usuari a la BD
         if (!TextUsuariRegistre.getText().isEmpty() && !TextContrasenyaRegistre.getText().isEmpty()) {
            String Nom = TextUsuariRegistre.getText();
            String Contrasenya = TextContrasenyaRegistre.getText();
