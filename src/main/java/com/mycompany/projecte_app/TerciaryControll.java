@@ -17,120 +17,94 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class TerciaryControll {
-//TAULELL PRINCIPAL AFEGIR
-    
-        GestioDades gestiodades = new GestioDades(); //MOLT IMPORTANT -- INSTANCIAR LA CLASSE
-    
-    
+
+    GestioDades gestiodades = new GestioDades();
+
     @FXML
-    ComboBox ComboTaula;
+    ComboBox<Taula> ComboTaula;
+
     @FXML
-    ComboBox ComboProducte;
+    ComboBox<Producte> ComboProducte;
+
     @FXML
     TextField NumeroClients;
+
     @FXML
     TextField QuantitatProducte;
+
     @FXML
     TextField CambrerAssociat;
+
     @FXML
-    ListView TextCompte;
+    ListView<Comanda> TextCompte;
+
     @FXML
     TextArea QuantitatTotal;
+
     @FXML
     TextArea QuantitatPersona;
-    
+
     @FXML
     private void Registrarse() throws IOException {
         App.setRoot("primary");
     }
-    
-    public void initialize() { //Que pasa al arribar al TerciaryControll
-    ComboTaula.setItems(gestiodades.llistaTaules()); // Vincula el ComboBox de taules amb les Taules del restaurant de la BD
-    ComboProducte.setItems(gestiodades.llistaProductes()); // Vincula el ComboBox de taules amb les Taules del restaurant de la BD
-    
-    // Comprovar que el ComboBox de taula no canvia de valor, si canvia de valor executar el if
-    ComboTaula.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-        if (newValue != null) {
-            actualizarListaComandas((Taula) newValue); // Actualiza la lista de comandas al seleccionar una nueva mesa
-        }
-    });
-    
-    //Elimina totes les comandes emmagatzemades a la BD un cop es carregui el Tercer Controlador
-    gestiodades.borrarComanda();
-}
-    
-    private void actualizarListaComandas(Taula taulaSeleccionada) {
-    TextCompte.getItems().clear(); // Borra els elements actuals del ListView
-    
-    // Recupera una ObservableList de totes les comandes que continguin la taula que es passa al mètode
-    ObservableList<Comanda> comandas = gestiodades.ObtenirComandesPerTaula(taulaSeleccionada);
-    
-    // Actualiza el ListView amb aquesta llista de comandes recuperada
-    TextCompte.getItems().addAll(comandas);
-}
 
-     
-    public void BotoAfegir(){
-        Taula TaulaSeleccionada = (Taula) ComboTaula.getValue(); //Aconseguir l'objecte Taula marcat en el combobox deTaules
-        Producte ProducteSeleccionat = (Producte) ComboProducte.getValue(); //Aconseguir l'objecte Producte del combobox de Productes
-        int NumClients = Integer.parseInt(NumeroClients.getText()); //Aconseguir el numero de clients del TextField
-        int quantitatProducte = Integer.parseInt(QuantitatProducte.getText()); //Aconseguir la quantitat del producte seleccionat del combobox
+    public void initialize() {
+        ComboTaula.setItems(gestiodades.llistaTaules());
+        ComboProducte.setItems(gestiodades.llistaProductes());
+
+        ComboTaula.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                actualizarListaComandas(newValue);
+            }
+        });
+
+        gestiodades.borrarComanda();
+    }
+
+    private void actualizarListaComandas(Taula taulaSeleccionada) {
+        TextCompte.getItems().clear();
+
+        ObservableList<Comanda> comandas = gestiodades.ObtenirComandesPerTaula(taulaSeleccionada);
+
+        TextCompte.getItems().addAll(comandas);
+    }
+
+    public void BotoAfegir() {
+        Taula taulaSeleccionada = ComboTaula.getValue();
+        Producte producteSeleccionat = ComboProducte.getValue();
+        System.out.println("PRODUCTE DEL COMBOBOX TERCIARY: " + producteSeleccionat.getPreu());
+        int numClients = Integer.parseInt(NumeroClients.getText());
+        int quantitatProducte = Integer.parseInt(QuantitatProducte.getText());
         
-        boolean ok1 = gestiodades.actualizarNumClients(TaulaSeleccionada, NumClients); //Actualitzar nombre de clients de la taula
-        
-        boolean ok2 = gestiodades.afegirComanda( TaulaSeleccionada, ProducteSeleccionat, quantitatProducte); //Crear una nova comanda
-        
-        /*boolean ok3 = gestiodades.AssociarCambrerTaula() Completar el codi afegint un metode a gestio dades i al control Textfield de cambrer associat mostrar la coluna de cambrer associat de la taula Taula de la BD*/
-        
-        if (ok1 == true && ok2 == true) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Comanda Enviada");
-                alert.setHeaderText("Acceptar");
-                Optional<ButtonType> result = alert.showAndWait();
-                
-                Comanda comanda = new Comanda (TaulaSeleccionada, ProducteSeleccionat, quantitatProducte); //Recuperala comanda enviada
-                
-                // Verificar si la comanda ya está presente en la lista (Fer un metode a gestioDades)
-                boolean comandaExistente = false;
-                for (Object item : TextCompte.getItems()) {
-                    if (item instanceof Comanda) {
-                        Comanda existingComanda = (Comanda) item;
-                    if (existingComanda.getTaulaSeleccionada().equals(comanda.getTaulaSeleccionada())
-                            && existingComanda.getProducteSeleccionat().equals(comanda.getProducteSeleccionat())) {
-                        // Si ya hay una comanda para esta mesa y producto,
-                        // actualiza la cantidad acumulando la nueva cantidad
-                        existingComanda.setQuantitatProducte(existingComanda.getQuantitatProducte() + comanda.getQuantitatProducte());
-                        comandaExistente = true;
-                        break;
-                        }
-                    }
-                 }
-                
-                // Si la comanda no está presente en la lista, agregarla
-                 if (!comandaExistente) {
-                    TextCompte.getItems().add(comanda); 
-                 }else{
-                     this.actualizarListaComandas(TaulaSeleccionada);
-                 }
-                
-                if (CambrerAssociat.getText().isEmpty()) { //Canviar esto per a que mostri el valor de la BD i no en de la variable del programa de JAVA
+        //Contruir l'objecte comanda
+
+        boolean ok1 = gestiodades.actualizarNumClients(taulaSeleccionada, numClients);
+        boolean ok2 = gestiodades.afegirComanda(taulaSeleccionada, producteSeleccionat, quantitatProducte);
+
+        if (ok1 && ok2) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Comanda Afegida");
+            alert.setHeaderText("La comanda s'ha afegit amb èxit.");
+            Optional<ButtonType> result = alert.showAndWait();
+            this.actualizarListaComandas(taulaSeleccionada);
+
+            if (CambrerAssociat.getText().isEmpty()) {
                 CambrerAssociat.setText(gestiodades.CambrerActual.getNom());
             }
-            
         } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error de Dades");
-                alert.setHeaderText("No s'ha pogut tramitar la comanda");
-                Optional<ButtonType> result = alert.showAndWait();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Hi ha hagut un error al processar la comanda.");
+            Optional<ButtonType> result = alert.showAndWait();
         }
-
     }
-    
-     public void BotoMostrarCompte(){
-         Taula TaulaSeleccionada = (Taula) ComboTaula.getValue(); //Aconseguir l'objecte Taula marcat en el combobox deTaules
-          double PreuTaula = gestiodades.ObtenirPreuTotalTaula(TaulaSeleccionada);
-          double PreuPersona = PreuTaula / Integer.valueOf(NumeroClients.getText());
-          QuantitatTotal.setText(String.valueOf(PreuTaula));
-          QuantitatPersona.setText(String.valueOf(PreuPersona));
+
+    public void BotoMostrarCompte() {
+        Taula taulaSeleccionada = ComboTaula.getValue();
+        double preuTaula = gestiodades.ObtenirPreuTotalTaula(taulaSeleccionada);
+        double preuPersona = preuTaula / Integer.valueOf(NumeroClients.getText());
+        QuantitatTotal.setText(String.valueOf(preuTaula));
+        QuantitatPersona.setText(String.valueOf(preuPersona));
     }
 }

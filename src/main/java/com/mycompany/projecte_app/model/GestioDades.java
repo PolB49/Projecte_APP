@@ -139,12 +139,14 @@ public class GestioDades {
             Statement ordre = connection.createStatement();
             ResultSet resultSet = ordre.executeQuery(sql);
             while (resultSet.next()) {
+                System.out.println("PRODUCTE DE LA BASE DADES -- " + "Nom: " + resultSet.getString(1) + "Preu" + resultSet.getDouble(2));
                 llistaProductes.add(
                         new Producte(
                                 resultSet.getString(1),
                                 resultSet.getDouble(2)
                         )
                 );
+                
             }
 
             connection.close();
@@ -236,47 +238,33 @@ public class GestioDades {
 }
     
 
-    public ObservableList<Comanda> ObtenirComandesPerTaula(Taula Taula) {
-    ObservableList<Comanda> comandes = FXCollections.observableArrayList();
-    Connection connection = null;
-    PreparedStatement preparedStatement = null;
-    ResultSet resultSet = null;
+    public ObservableList<Comanda> ObtenirComandesPerTaula(Taula taulaSeleccionada) {
+    ObservableList<Comanda> comandas = FXCollections.observableArrayList();
+    String sql = "SELECT c.*, p.Preu " +
+                 "FROM Comanda c " +
+                 "JOIN Producte p ON c.Producte = p.Nom " +
+                 "WHERE c.Taula = ?";
+
+    Connection connection = new Connexio_BD().connecta();
     try {
-        connection = new Connexio_BD().connecta();
-        String sql = "SELECT * FROM Comanda WHERE Taula = ?";
-        preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, Taula.getNom_Taula());
-        resultSet = preparedStatement.executeQuery();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, taulaSeleccionada.getNom_Taula());
+        ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
-            //Emmagatzema cada dada en forma de objecte per despres juntar-les en una altra classe anomenada "Comanda"
-            
-            Taula taula = new Taula(resultSet.getString("Taula"), 0, null);
-            Producte producte = new Producte(resultSet.getString("Producte"), 0.0);
-            int quantitat = resultSet.getInt("Quantitat");
-            
-            // De les dades recuperades de la BD crea una nova comanda i afegeix-la al ObservableList de comandes
-            Comanda comanda = new Comanda(taula, producte, quantitat);
-            // Agrega la comanda a la lista
-            comandes.add(comanda);
+            Producte producte = new Producte(resultSet.getString("Producte"), resultSet.getDouble("Preu"));
+            Comanda comanda = new Comanda(
+                taulaSeleccionada,
+                producte,
+                resultSet.getInt("Quantitat")
+            );
+            comandas.add(comanda);
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    } finally {
-        try {
-            if (resultSet != null) {
-                resultSet.close();
-            }
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        connection.close();
+    } catch (SQLException throwables) {
+        System.out.println("Error: " + throwables.getMessage());
     }
-    return comandes;
+    return comandas;
 }
+    
 
 }
