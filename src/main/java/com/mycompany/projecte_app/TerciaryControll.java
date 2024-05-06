@@ -37,12 +37,9 @@ public class TerciaryControll {
 
     @FXML
     ListView<Comanda> TextCompte;
-
+    
     @FXML
-    TextArea QuantitatTotal;
-
-    @FXML
-    TextArea QuantitatPersona;
+    TextField NovaQuantitat;
 
     @FXML
     private void Registrarse() throws IOException {
@@ -59,7 +56,6 @@ public class TerciaryControll {
             }
         });
 
-        gestiodades.borrarComanda();
     }
 
     private void actualizarListaComandas(Taula taulaSeleccionada) {
@@ -99,12 +95,33 @@ public class TerciaryControll {
             Optional<ButtonType> result = alert.showAndWait();
         }
     }
-
-    public void BotoMostrarCompte() {
-        Taula taulaSeleccionada = ComboTaula.getValue();
-        double preuTaula = gestiodades.ObtenirPreuTotalTaula(taulaSeleccionada);
-        double preuPersona = preuTaula / Integer.valueOf(NumeroClients.getText());
-        QuantitatTotal.setText(String.valueOf(preuTaula));
-        QuantitatPersona.setText(String.valueOf(preuPersona));
+    
+    public void borrarComanda(){
+        Comanda comandaSeleccionada = (Comanda) TextCompte.getSelectionModel().getSelectedItem();
+        boolean ok = gestiodades.borrarComanda(comandaSeleccionada);
+        
+        if (ok == true) {
+            this.actualizarListaComandas( ComboTaula.getValue());
+        } else {
+            System.out.println("No s'ha pogut esborrar la comanda");
+        }
+    }
+    
+    public void modificarComanda(){
+        Comanda comandaSeleccionada = (Comanda) TextCompte.getSelectionModel().getSelectedItem();
+        int novaQuantitat = Integer.parseInt(NovaQuantitat.getText());
+        
+        boolean ok = gestiodades.modificarComanda(comandaSeleccionada, novaQuantitat);
+        
+        if (ok == true) {
+            this.actualizarListaComandas( ComboTaula.getValue());
+        } else {
+            System.out.println("No s'ha pogut modificar la comanda");
+        }
+    }
+    
+    @FXML
+    private void Quaternary() throws IOException{
+        App.setRoot("quaternary");
     }
 }

@@ -22,8 +22,8 @@ import javafx.collections.ObservableList;
 public class GestioDades {
     
     //METODES QUE S'EXECUTEN AL INICIALITZAR LA APP
-    
-    public void borrarComanda() {
+     
+    public void borrarTotesComanda() {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     try {
@@ -238,7 +238,7 @@ public class GestioDades {
 }
     
 
-    public ObservableList<Comanda> ObtenirComandesPerTaula(Taula taulaSeleccionada) {
+    public ObservableList<Comanda> ObtenirComandesPerTaula(Taula taulaSeleccionada) { //TERCIARY CONTROLLER --> Obtenir la llista de comandes on coincideixi la taula. Despres aquesta llista es passarà per mostrar-la al ListView
     ObservableList<Comanda> comandas = FXCollections.observableArrayList();
     String sql = "SELECT c.*, p.Preu " +
                  "FROM Comanda c " +
@@ -265,6 +265,56 @@ public class GestioDades {
     }
     return comandas;
 }
+    
+    public boolean borrarComanda(Comanda comandaborrar){ //TERCIARY CONTROLLER --> Esborra de la BD la comanda que rep
+        boolean ok = false;
+        
+        String sql = "DELETE FROM Comanda WHERE Taula = ? AND Producte = ?";
+
+        Connection connection = new Connexio_BD().connecta();
+        try {
+            PreparedStatement ordre = connection.prepareStatement(sql);
+            ordre.setString(1, comandaborrar.getTaulaSeleccionada().getNom_Taula());
+            ordre.setString(2, comandaborrar.getProducteSeleccionat().getNom());
+            
+            ordre.executeUpdate();
+            
+            ok = true;
+            
+            connection.close();
+            
+    } catch (SQLException throwables) {
+        System.out.println("Error: " + throwables.getMessage());
+    }
+    
+        return ok;
+    }
+    
+    public boolean modificarComanda(Comanda comandamodificar, int novaQuantitat){ //TERCIARY CONTROLLER --> Modificar la quantitat de la comanda que rep
+        boolean ok = false;
+        
+        String sql = "UPDATE Comanda SET Quantitat = ? WHERE Taula = ? AND Producte = ?";
+
+        Connection connection = new Connexio_BD().connecta();
+        try {
+            PreparedStatement ordre = connection.prepareStatement(sql);
+            
+            ordre.setInt(1, novaQuantitat);
+            ordre.setString(2, comandamodificar.getTaulaSeleccionada().getNom_Taula());
+            ordre.setString(3, comandamodificar.getProducteSeleccionat().getNom());
+            
+            ordre.executeUpdate();
+            
+            ok = true;
+            
+            connection.close();
+            
+    } catch (SQLException throwables) {
+        System.out.println("Error: " + throwables.getMessage());
+    }
+    
+        return ok;
+    }
     
 
 }

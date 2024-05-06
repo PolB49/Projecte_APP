@@ -5,20 +5,19 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.projecte_app.TerciaryControll">
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.projecte_app.TerciaryControll">
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
    <children>
       <AnchorPane prefHeight="187.0" prefWidth="675.0">
          <children>
-            <ComboBox fx:id="ComboTaula" layoutX="72.0" layoutY="25.0" prefWidth="150.0" />
-            <ComboBox fx:id="ComboProducte" layoutX="414.0" layoutY="25.0" prefWidth="150.0" />
+            <ComboBox fx:id="ComboTaula" layoutX="90.0" layoutY="25.0" prefWidth="150.0" />
+            <ComboBox fx:id="ComboProducte" layoutX="448.0" layoutY="25.0" prefWidth="150.0" />
             <Label layoutX="390.0" layoutY="70.0" prefHeight="16.0" prefWidth="72.0" text="Quantitat:" />
             <TextField fx:id="QuantitatProducte" layoutX="489.0" layoutY="66.0" />
             <Label layoutX="24.0" layoutY="70.0" prefHeight="17.0" prefWidth="96.0" text="Numero Clients:" />
@@ -29,13 +28,13 @@
       <AnchorPane prefHeight="353.0" prefWidth="678.0">
          <children>
             <Label layoutX="30.0" layoutY="28.0" text="Cambrer Associat:" />
-            <TextArea fx:id="QuantitatTotal" layoutX="494.0" layoutY="112.0" prefHeight="63.0" prefWidth="156.0" />
-            <Label layoutX="550.0" layoutY="82.0" text="Compte:" />
-            <Button fx:id="MostrarCompte" layoutX="520.0" layoutY="45.0" mnemonicParsing="false" onAction="#BotoMostrarCompte" text="Mostrar Compte:" />
             <ListView fx:id="TextCompte" layoutX="30.0" layoutY="65.0" prefHeight="244.0" prefWidth="448.0" />
-            <TextField fx:id="CambrerAssociat" editable="false" layoutX="145.0" layoutY="24.0" />
-            <TextArea fx:id="QuantitatPersona" layoutX="495.0" layoutY="238.0" prefHeight="63.0" prefWidth="156.0" />
-            <Label layoutX="517.0" layoutY="200.0" text="Compte per persona:" />
+            <TextField fx:id="CambrerAssociat" editable="false" layoutX="169.0" layoutY="24.0" />
+            <Button layoutX="534.0" layoutY="285.0" mnemonicParsing="false" onAction="#Quaternary" text="Seccio Comptes" />
+            <Button layoutX="559.0" layoutY="32.0" mnemonicParsing="false" onAction="#borrarComanda" text="Eliminar" />
+            <Button layoutX="523.0" layoutY="175.0" mnemonicParsing="false" onAction="#modificarComanda" text="Modificar Quantitat" />
+            <TextField fx:id="NovaQuantitat" layoutX="560.0" layoutY="137.0" prefHeight="24.0" prefWidth="72.0" />
+            <Label layoutX="544.0" layoutY="108.0" text="Nova Quantiat: " />
          </children>
       </AnchorPane>
    </children>

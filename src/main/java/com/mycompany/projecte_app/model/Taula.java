@@ -28,6 +28,11 @@ public class Taula {
     public String getNom_Taula() {
         return Nom_Taula;
     }
+
+    public int getNum_Clients() {
+        return Num_Clients;
+    }
+    
     
     
 }
