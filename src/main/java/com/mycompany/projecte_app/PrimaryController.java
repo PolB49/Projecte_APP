@@ -1,6 +1,6 @@
 package com.mycompany.projecte_app;
 
-import com.mycompany.projecte_app.model.Connexio_BD;
+
 import com.mycompany.projecte_app.model.GestioDades;
 import java.io.IOException;
 import java.util.Optional;
@@ -37,7 +37,6 @@ public class PrimaryController {
             boolean ok = gestiodades.consultarCambrer(Nom, Contrasenya);
         
             if (ok == true) { //Passar de pestanya a l'inici de sessió
-                gestiodades.borrarTotesComanda(); //Esborrar les comandes de la BD abans d'entrar al terciary
                 this.IniciSessio();
                 
             } else{ //Mostrar missatge d'error

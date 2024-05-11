@@ -1,6 +1,5 @@
 package com.mycompany.projecte_app;
 
-import com.mycompany.projecte_app.model.Cambrer;
 import com.mycompany.projecte_app.model.Comanda;
 import com.mycompany.projecte_app.model.GestioDades;
 import com.mycompany.projecte_app.model.Producte;
@@ -13,7 +12,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class TerciaryControll {
@@ -64,12 +62,18 @@ public class TerciaryControll {
         ObservableList<Comanda> comandas = gestiodades.ObtenirComandesPerTaula(taulaSeleccionada);
 
         TextCompte.getItems().addAll(comandas);
+        
+        if (!comandas.isEmpty()) {
+            CambrerAssociat.setText(gestiodades.ObtenirCambrerDeTaula(taulaSeleccionada));
+        
+        }else{
+            CambrerAssociat.setText("");
+        }
     }
 
     public void BotoAfegir() {
         Taula taulaSeleccionada = ComboTaula.getValue();
         Producte producteSeleccionat = ComboProducte.getValue();
-        System.out.println("PRODUCTE DEL COMBOBOX TERCIARY: " + producteSeleccionat.getPreu());
         int numClients = Integer.parseInt(NumeroClients.getText());
         int quantitatProducte = Integer.parseInt(QuantitatProducte.getText());
         
@@ -85,9 +89,6 @@ public class TerciaryControll {
             Optional<ButtonType> result = alert.showAndWait();
             this.actualizarListaComandas(taulaSeleccionada);
 
-            if (CambrerAssociat.getText().isEmpty()) {
-                CambrerAssociat.setText(gestiodades.CambrerActual.getNom());
-            }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");

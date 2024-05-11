@@ -1,0 +1,12 @@
+/* Estilo para los botones */
+.button {
+    -fx-background-color: #7FFFD4; /* Color de fondo azul turquesa muy claro */
+    -fx-border-color: #800080; /* Color del borde morado */
+    -fx-border-width: 2px; /* Ancho del borde */
+    -fx-border-radius: 5px; /* Radio de esquina del borde */
+    -fx-background-radius: 5px; /* Radio de esquina del fondo */
+    -fx-text-fill: black; /* Color del texto */
+}
+
+/* Estilo para otros controles */
+/* Aquí puedes definir estilos para otros tipos de controles, como TextField, TextArea, etc. */

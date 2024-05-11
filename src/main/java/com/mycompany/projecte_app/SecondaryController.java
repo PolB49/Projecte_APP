@@ -1,6 +1,5 @@
 package com.mycompany.projecte_app;
 
-import com.mycompany.projecte_app.model.Cambrer;
 import com.mycompany.projecte_app.model.GestioDades;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -39,7 +38,6 @@ public class SecondaryController {
             boolean ok = gestiodades.afegeixCambrer(Nom, Contrasenya);
             
             if (ok == true) {
-                gestiodades.borrarTotesComanda(); //Esborrar les comandes de la BD abans d'entrar al terciary
                 this.Registrarse();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);

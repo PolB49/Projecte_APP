@@ -23,29 +23,6 @@ public class GestioDades {
     
     //METODES QUE S'EXECUTEN AL INICIALITZAR LA APP
      
-    public void borrarTotesComanda() {
-    Connection connection = null;
-    PreparedStatement preparedStatement = null;
-    try {
-        connection = new Connexio_BD().connecta();
-        String sql = "DELETE FROM Comanda";
-        preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.executeUpdate();
-    } catch (SQLException e) {
-        e.printStackTrace();
-    } finally {
-        try {
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-}
     
     //PRIMARY CONTROLLER
     
@@ -205,37 +182,49 @@ public class GestioDades {
                 preparedStatement.setInt(4, quantitat);
                 preparedStatement.executeUpdate();
             }
-        
+            
+            this.associaCambrerTaula(CambrerActual, taula);
             ok2 = true; // Marca la operación como exitosa
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
             return ok2;
         }
-
-    
-    public double ObtenirPreuTotalTaula(Taula taulaSeleccionada) { //TERCIARY CONTROLLER --> Obtenir la suma dels preus dels productes * la quantitat i donar el preu total de la taula
-    double preuTotal = 0.0;
-    
-     try (Connection connection = new Connexio_BD().connecta()) {
-                String sql = "SELECT SUM(p.Preu * c.Quantitat) AS Total " +
-                                    "FROM Comanda c " +
-                                    "JOIN Producte p ON c.Producte = p.Nom " +
-                                    "WHERE c.Taula = ?";
-                
+        
+        public boolean associaCambrerTaula(Cambrer cambrer, Taula taula) { //TERCIARY CONTROLLER --> Associa un El cambrer actual al cambrer que porta la taula de la BD
+            boolean ok = false;
+        
+            try (Connection connection = new Connexio_BD().connecta()) {
+                String sql = "UPDATE Taula SET Cambrer_associat = ? WHERE Nom_Taula = ?";
                 PreparedStatement ordre = connection.prepareStatement(sql);
-                ordre = connection.prepareStatement(sql);
-                ordre.setString(1, taulaSeleccionada.getNom_Taula());
-                ResultSet resultSet = ordre.executeQuery();
+                    ordre.setString(1, cambrer.getNom());
+                    ordre.setString(2, taula.getNom_Taula());
+                    ordre.execute();
                 
-        if (resultSet.next()) {
-            preuTotal = resultSet.getDouble("Total");
-        }
+                    ok = true;
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-    return preuTotal;
-}
+            return ok;
+        }
+        
+        public String ObtenirCambrerDeTaula(Taula taula) {
+            String cambrerAssociat = null;
+            
+            try (Connection connection = new Connexio_BD().connecta()) {
+                String sql = "SELECT Cambrer_associat FROM Taula WHERE Nom_Taula=?";
+                PreparedStatement ordre = connection.prepareStatement(sql);
+                ordre.setString(1, taula.getNom_Taula());
+                ResultSet resultSet = ordre.executeQuery();
+            if (resultSet.next()) {
+                cambrerAssociat = resultSet.getString("Cambrer_associat");
+            }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return cambrerAssociat;
+        }
     
 
     public ObservableList<Comanda> ObtenirComandesPerTaula(Taula taulaSeleccionada) { //TERCIARY CONTROLLER --> Obtenir la llista de comandes on coincideixi la taula. Despres aquesta llista es passarà per mostrar-la al ListView
@@ -316,5 +305,45 @@ public class GestioDades {
         return ok;
     }
     
+    //QUATERNARY CONTROLLER
+    
+    public boolean FinalitzarTaula(Taula taula) { //QUATERNARY CONTROL --> Elimina totes les comandes de la taula Comandes de la BD associades a la taula que rep
+    boolean ok = false;
+    String sql = "DELETE FROM Comanda WHERE Taula = ?";
 
+    try (Connection connection = new Connexio_BD().connecta();
+         PreparedStatement ordre = connection.prepareStatement(sql)) {
+        ordre.setString(1, taula.getNom_Taula());
+        ordre.executeUpdate();
+        
+        ok = true;
+    } catch (SQLException throwables) {
+        throwables.printStackTrace();
+    }
+    return ok;
+}
+
+     public double ObtenirPreuTotalTaula(Taula taulaSeleccionada) { //QUATERNARY CONTROL  --> Obtenir la suma dels preus dels productes * la quantitat i donar el preu total de la taula
+    double preuTotal = 0.0;
+    
+     try (Connection connection = new Connexio_BD().connecta()) {
+                String sql = "SELECT SUM(p.Preu * c.Quantitat) AS Total " +
+                                    "FROM Comanda c " +
+                                    "JOIN Producte p ON c.Producte = p.Nom " +
+                                    "WHERE c.Taula = ?";
+                
+                PreparedStatement ordre = connection.prepareStatement(sql);
+                ordre = connection.prepareStatement(sql);
+                ordre.setString(1, taulaSeleccionada.getNom_Taula());
+                ResultSet resultSet = ordre.executeQuery();
+                
+        if (resultSet.next()) {
+            preuTotal = resultSet.getDouble("Total");
+        }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+    return preuTotal;
+}
+    
 }
