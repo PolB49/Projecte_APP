@@ -30,7 +30,7 @@ public String toString() {
     int quantitat = quantitatProducte;
 
     // Construeix una cadena amb el nom del producte, el preu unitari i la quantitat
-    String representacioComanda = String.format("%s - Preu unitari: %.2f - Quantitat: %d", nomProducte, preuProducte, quantitat);
+    String representacioComanda = (nomProducte + " - " + "Preu Unitari: " + preuUnitari + " € - " + "Quantitat: " + quantitat);
 
     return representacioComanda;
 }

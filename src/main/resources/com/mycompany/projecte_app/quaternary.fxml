@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="568.0" prefWidth="691.0" spacing="20.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.projecte_app.QuaternaryControll">
+<VBox alignment="CENTER" prefHeight="568.0" prefWidth="691.0" spacing="20.0" stylesheets="@css/estils.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.projecte_app.QuaternaryControll">
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
@@ -16,8 +16,8 @@
       <AnchorPane prefHeight="527.0" prefWidth="651.0">
          <children>
             <ComboBox fx:id="ComboTaula" layoutX="251.0" layoutY="127.0" prefWidth="150.0" />
-            <TextArea fx:id="QuantitatTotal" layoutX="67.0" layoutY="264.0" prefHeight="103.0" prefWidth="184.0" />
-            <TextArea fx:id="QuantitatPersona" layoutX="401.0" layoutY="264.0" prefHeight="103.0" prefWidth="184.0" />
+            <TextArea fx:id="QuantitatTotal" editable="false" layoutX="67.0" layoutY="264.0" prefHeight="103.0" prefWidth="184.0" />
+            <TextArea fx:id="QuantitatPersona" editable="false" layoutX="401.0" layoutY="264.0" prefHeight="103.0" prefWidth="184.0" />
             <Label layoutX="137.0" layoutY="207.0" text="Compte:" />
             <Label layoutX="437.0" layoutY="207.0" text="Compte per persona:" />
             <Button layoutX="265.0" layoutY="195.0" mnemonicParsing="false" onAction="#ActualitzarPreus" text="Mostrar Compte" />

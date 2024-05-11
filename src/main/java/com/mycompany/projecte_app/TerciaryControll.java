@@ -72,54 +72,87 @@ public class TerciaryControll {
     }
 
     public void BotoAfegir() {
-        Taula taulaSeleccionada = ComboTaula.getValue();
-        Producte producteSeleccionat = ComboProducte.getValue();
-        int numClients = Integer.parseInt(NumeroClients.getText());
-        int quantitatProducte = Integer.parseInt(QuantitatProducte.getText());
-        
-        //Contruir l'objecte comanda
+        if (!ComboTaula.getItems().isEmpty() && !ComboProducte.getItems().isEmpty() && !NumeroClients.getText().isEmpty() && !QuantitatProducte.getText().isEmpty()) {
+            try {
+                // Intenta convertir el text de NumeroClients a un enter
+                int numClients = Integer.parseInt(NumeroClients.getText());
+                int quantitatProducte = Integer.parseInt(QuantitatProducte.getText());
 
-        boolean ok1 = gestiodades.actualizarNumClients(taulaSeleccionada, numClients);
-        boolean ok2 = gestiodades.afegirComanda(taulaSeleccionada, producteSeleccionat, quantitatProducte);
+                Taula taulaSeleccionada = ComboTaula.getValue();
+                Producte producteSeleccionat = ComboProducte.getValue();
 
-        if (ok1 && ok2) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Comanda Afegida");
-            alert.setHeaderText("La comanda s'ha afegit amb èxit.");
-            Optional<ButtonType> result = alert.showAndWait();
-            this.actualizarListaComandas(taulaSeleccionada);
+                // Construir l'objecte comanda
+                boolean ok1 = gestiodades.actualizarNumClients(taulaSeleccionada, numClients);
+                boolean ok2 = gestiodades.afegirComanda(taulaSeleccionada, producteSeleccionat, quantitatProducte);
 
+                if (ok1 && ok2) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Comanda Afegida");
+                    alert.setHeaderText("La comanda s'ha afegit amb èxit.");
+                    Optional<ButtonType> result = alert.showAndWait();
+                    this.actualizarListaComandas(taulaSeleccionada);
+                }
+            } catch (NumberFormatException e) {
+                // En cas d'error, mostra un missatge d'alerta
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Error");
+                alert.setHeaderText("'Numero de clients' i 'Quantitat del producte' han de ser números enters.");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            // Mostra missatge d'alerta si falta algun valor
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
-            alert.setHeaderText("Hi ha hagut un error al processar la comanda.");
+            alert.setHeaderText("Si us plau, omple tots els camps.");
             Optional<ButtonType> result = alert.showAndWait();
         }
     }
+
     
     public void borrarComanda(){
-        Comanda comandaSeleccionada = (Comanda) TextCompte.getSelectionModel().getSelectedItem();
-        boolean ok = gestiodades.borrarComanda(comandaSeleccionada);
+        if (!TextCompte.getSelectionModel().isEmpty()) {
+            
+            Comanda comandaSeleccionada = (Comanda) TextCompte.getSelectionModel().getSelectedItem();
+            boolean ok = gestiodades.borrarComanda(comandaSeleccionada);
         
-        if (ok == true) {
-            this.actualizarListaComandas( ComboTaula.getValue());
+            if (ok == true) {
+                this.actualizarListaComandas( ComboTaula.getValue());
+            }
+        
         } else {
-            System.out.println("No s'ha pogut esborrar la comanda");
+              Alert alert = new Alert(Alert.AlertType.WARNING);
+              alert.setTitle("SELECCIONA UNA COMANDA");
+              alert.setHeaderText("Has de seleccionar la comanda a eliminar");
+              Optional<ButtonType> result = alert.showAndWait();
         }
+           
     }
     
-    public void modificarComanda(){
-        Comanda comandaSeleccionada = (Comanda) TextCompte.getSelectionModel().getSelectedItem();
-        int novaQuantitat = Integer.parseInt(NovaQuantitat.getText());
-        
-        boolean ok = gestiodades.modificarComanda(comandaSeleccionada, novaQuantitat);
-        
-        if (ok == true) {
-            this.actualizarListaComandas( ComboTaula.getValue());
+    public void modificarComanda() {
+        if (!TextCompte.getSelectionModel().isEmpty() && !NovaQuantitat.getText().isEmpty()) {
+            try {
+                Comanda comandaSeleccionada = (Comanda) TextCompte.getSelectionModel().getSelectedItem();
+                int novaQuantitat = Integer.parseInt(NovaQuantitat.getText());
+
+                boolean ok = gestiodades.modificarComanda(comandaSeleccionada, novaQuantitat);
+
+                if (ok) {
+                    this.actualizarListaComandas(ComboTaula.getValue());
+                }
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Error");
+                alert.setHeaderText("La nova quantitat ha de ser un número enter.");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
         } else {
-            System.out.println("No s'ha pogut modificar la comanda");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("SELECCIONA UNA COMANDA");
+            alert.setHeaderText("Has de seleccionar la comanda a modificar i indicar una nova quantitat.");
+            Optional<ButtonType> result = alert.showAndWait();
         }
     }
+
     
     @FXML
     private void Quaternary() throws IOException{

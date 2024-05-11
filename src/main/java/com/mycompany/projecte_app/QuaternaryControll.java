@@ -3,6 +3,7 @@ package com.mycompany.projecte_app;
 import com.mycompany.projecte_app.model.GestioDades;
 import com.mycompany.projecte_app.model.Taula;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Optional;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -26,17 +27,42 @@ public class QuaternaryControll {
     @FXML
     private void initialize() {
         ComboTaula.setItems(gestiodades.llistaTaules());
+        
+            if (!ComboTaula.getItems().isEmpty()) {
+        ComboTaula.setValue(ComboTaula.getItems().get(0)); //Selecciona el valor per defecte del primer element del combobox
+        }
+ 
+         QuantitatTotal.setText("0.00 €");
+         QuantitatPersona.setText("0.00 €");
     }
 
     public void ActualitzarPreus() {
         Taula taulaseleccionada = ComboTaula.getValue();
-        double precioTotal = gestiodades.ObtenirPreuTotalTaula(taulaseleccionada);
-        int numPersonas = taulaseleccionada.getNum_Clients();
-        double preuPerPersona = precioTotal / numPersonas;
+        double preuTotal = gestiodades.ObtenirPreuTotalTaula(taulaseleccionada);
 
-        QuantitatTotal.setText(String.valueOf(precioTotal));
-        QuantitatPersona.setText(String.valueOf(preuPerPersona));
+        // Comprovar si la taula seleccionada té comandes
+        if (preuTotal == 0.00) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("La taula seleccionada no té comandes.");
+            alert.showAndWait();
+        
+        }else{
+            // Continuar amb el càlcul dels preus si la taula té comandes
+            int numPersones = taulaseleccionada.getNum_Clients();
+            double preuPerPersona = preuTotal / numPersones;
+            preuPerPersona = Math.round(preuPerPersona * 100.0) / 100.0; //Aproximar a 2 decimals
+            
+            String preuTotalFormatat = String.format("%.2f", preuTotal);
+            String preuPerPersonaFormatat = String.format("%.2f", preuPerPersona);
+
+            QuantitatTotal.setText(String.valueOf(preuTotalFormatat) + " €");
+            QuantitatPersona.setText(String.valueOf(preuPerPersonaFormatat) + " €");
+        }
+
+        
     }
+
     
     public void FinalitzarTaula() {
         Taula taula = ComboTaula.getValue();
@@ -47,7 +73,9 @@ public class QuaternaryControll {
             alert.setTitle("Taula Finalitzada");
             alert.setHeaderText("Les comandes associades a la taula s'han eliminat");
             Optional<ButtonType> result = alert.showAndWait();
-
+            
+            QuantitatTotal.setText("0.00 €");
+            QuantitatPersona.setText("0.00 €");
         }
     }
     

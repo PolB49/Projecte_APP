@@ -1,12 +1,27 @@
-/* Estilo para los botones */
-.button {
-    -fx-background-color: #7FFFD4; /* Color de fondo azul turquesa muy claro */
-    -fx-border-color: #800080; /* Color del borde morado */
-    -fx-border-width: 2px; /* Ancho del borde */
-    -fx-border-radius: 5px; /* Radio de esquina del borde */
-    -fx-background-radius: 5px; /* Radio de esquina del fondo */
-    -fx-text-fill: black; /* Color del texto */
+/* Estilo del fondo degradado */
+.root {
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #87CEEB); /* Fondo degradado azul y blanco */
 }
 
-/* Estilo para otros controles */
-/* Aquí puedes definir estilos para otros tipos de controles, como TextField, TextArea, etc. */
+/* Estilo de los botones */
+.button {
+    -fx-background-color: #ADD8E6; /* Fondo azul cian claro para los botones */
+    -fx-text-fill: #ffffff; /* Texto blanco */
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+    -fx-border-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #5F9EA0; /* Cambio de color al pasar el ratón */
+}
+
+/* Estilo de los text areas */
+.text-area {
+    -fx-font-size: 20px; /* Tamaño de letra grande */
+    -fx-text-alignment: center; /* Texto centrado en el centro del text area */
+    -fx-padding: 10px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #ccc; /* Borde gris claro */
+}

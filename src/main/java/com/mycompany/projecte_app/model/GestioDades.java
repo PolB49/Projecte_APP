@@ -30,19 +30,28 @@ public class GestioDades {
     
     public boolean consultarCambrer(String Nom, String Contrasenya) { //PRIMARY CONTROLLER - Comprovar si l'usuari existeix a la BD
          boolean ok = false; //Boolea que comprovarà si les dades passades als TextFields coincideixen amb dades de la BD
-        String sql = "SELECT Nom, Contrasenya FROM Cambrer where Nom=? and Contrasenya=?"; //Consulta SQL on els "?" representen les variables del codi JAVA
         Connection connection = new Connexio_BD().connecta(); // Connexió amb la base de dades
+        
         try {
+           String sql = "SELECT Nom, Contrasenya FROM Cambrer WHERE Nom=? AND Contrasenya=?"; //Consulta SQL on els "?" representen les variables del codi JAVA
             PreparedStatement ordre = connection.prepareStatement(sql);
             ordre.setString(1, Nom);
             ordre.setString(2, Contrasenya);
             ResultSet resultSet = ordre.executeQuery(); //Comprova si les dades introduides i les de la BD coincideixen
-            if (resultSet.next()) { //Si coincideixen fes que el boleà sigui true
+            
+            while (resultSet.next()) {
+                String nomDB = resultSet.getString("Nom");
+                String contrasenyaDB = resultSet.getString("Contrasenya");
+                
+            if (nomDB.equals(Nom) && contrasenyaDB.equals(Contrasenya)) {
                 ok = true;
                 CambrerActual.setNom(Nom);
                 CambrerActual.setContrasenya(Contrasenya);
-                System.out.println("CAMBRER CONSULTAT: " + CambrerActual.getNom()); // Añade esta línea para verificar
+                System.out.println("CAMBRER CONSULTAT: " + CambrerActual.getNom());
+                break;
             }
+        }
+            
         } catch (SQLException e) {
             System.out.println("Error SQL:" + e.getMessage());
         } finally {
@@ -323,8 +332,8 @@ public class GestioDades {
     return ok;
 }
 
-     public double ObtenirPreuTotalTaula(Taula taulaSeleccionada) { //QUATERNARY CONTROL  --> Obtenir la suma dels preus dels productes * la quantitat i donar el preu total de la taula
-    double preuTotal = 0.0;
+    public double ObtenirPreuTotalTaula(Taula taulaSeleccionada) { //QUATERNARY CONTROL  --> Obtenir la suma dels preus dels productes * la quantitat i donar el preu total de la taula
+    double preuTotal = 0.00;
     
      try (Connection connection = new Connexio_BD().connecta()) {
                 String sql = "SELECT SUM(p.Preu * c.Quantitat) AS Total " +
@@ -339,6 +348,7 @@ public class GestioDades {
                 
         if (resultSet.next()) {
             preuTotal = resultSet.getDouble("Total");
+            preuTotal = Math.round(preuTotal * 100.0) / 100.0; // Aproximar a dos decimals
         }
             } catch (SQLException e) {
                 e.printStackTrace();
