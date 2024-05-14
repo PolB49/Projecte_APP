@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Documentació App TaulaFacil</title>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="Imatges_P1/Favicon.ico" type="image/x-icon"/>
+  
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #ffffff, #87CEEB); /* Fondo degradado azul y blanco */
+            background-repeat: no-repeat; /* Evita que se repita el fondo */
+            background-attachment: fixed; /* Fija el fondo al visualizarlo en pantallas */
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+        .content {
+            display: none;
+        }
+        .content.active {
+            display: block;
+        }
+        .apartat img {
+            display: block; /* Asegurar que la imagen se muestra como un bloque */
+            margin: 0 auto; /* Centrar la imagen horizontalmente */
+            max-width: 700px; /* Ajustar el ancho máximo de la imagen al 80% del contenedor */
+            height: auto; /* Permitir que la altura se ajuste automáticamente */
+            padding: 10px 0; /* Añadir un espacio alrededor de la imagen */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="App.html" title="Anar al document d'inici">Inici</a>
+            <a href="descripcio.html" title="Anar al document de descripció">Descripció</a>
+            <a href="cronograma.html" title="Anar al document de cronograma">Cronograma</a>
+            <a href="disseny.html" title="Anar al document de disseny">Disseny</a>
+            <a href="uml.html" title="Anar al document de UML">UML</a>
+            <a href="manual.html" title="Anar al document de manual">Manual</a>
+            <a href="incidents.html" title="Anar al document d'incidents">Incidents</a>
+        </nav>
+    </header>
+
+    <div class="apartat">
+        <h1>Sistema d'inici de sessió</h1>
+
+        <p>En el primer apartat de l'aplicació "TaulaFàcil" es pot apreciar el logotip amb el tíol de l'aplicació. Situat més a la zona central-drtea, es troben dos caps per com`pletar. 
+            Aquests són els de "Usuari", el qual es registrarà com a un cambrer que farà ús de l'aplicació, i el de "Contrasenya", que es completarà amb un conjunt de caràcters.</p>
+
+        <p>Seguidament, a la zona inferior de la pantalla, trobem el botó d'inici de sessió que comrovarà que les dades introduides es troben a la base de dades, i el botó de registre en cas de voler crear un nou usuari.</p>
+
+        <img src="/imatges/inicisessio.png" alt="Logo">
+
+    </div>
+   
+    <div class="apartat">
+        <h1>Sistema de registre</h1>
+
+        <p>En cas de voler crear un nou usuari, s'escull un nom d'usuari i una contrasenya.
+            <br> Un cop creat, es pot clicar a sobre de "Registrar-se" per accedir a la part principal de l'aplicació.
+        </p>
+
+        <p>Si s'ha accedit a la secció de registre per error, es pot anar a l'apartat d'inici de sessió mitançant el botó "Iniciar sessió"</p>
+
+        <img src="/imatges/registre.png" alt="Logo">
+    </div>
+
+    <div class="apartat">
+        <h1>Addició d'una comanda</h1>
+
+        <p>Per a crear una nova comanda, farà falta completar 4 camps</p>
+        <ul>
+            <li>Combobox de taula: Seleccionar en quina taula es vol implementar la comanda.</li>
+            <li>Combobox de producte: Seleccionar quin producte es vol afegir.</li>
+            <li>TextField de nombre de clients: Indicar el nombre de clients que conformen la taula seleccionada al combobox de taules.</li>
+            <li>TextField de quantitat: Seleccionar la quantitat del producte seleccionat que es vol tenir associada a la taula seleccioanda al combobox de taules.</li>
+        </ul>
+
+        <p>Un cop completades aquestes dades, es pot afegir la comanda. Aquesta comanda es veura reflectida al ListView de la zona inferior juntament amb l'usuari de qui ha fet la última comanda en aquella taula.
+            En cas que es canviï la taula en el ComboBox, el ListView s'actualitza y mostrarà les comandes associades a la taula que està seleccionada actualment.
+        </p>
+
+        <img src="/imatges/principal.png" alt="Logo">
+    </div>
+
+    <div class="apartat">
+        <h1>Eliminació d'una comanda</h1>
+
+        <p>Per eliminar una comanda, cal selecionar amb el ratolí una de les comandes assignades a la taula, llavors, fer click al boto eliminar</p>
+    </div>
+
+    <div class="apartat">
+        <h1>Modificació d'una comanda</h1>
+
+        <p>Per modificar la quantiat de producte d'una de les comandes, cal selecionar amb el ratolí una de les comandes assignades a la taula, llavors seleccionar la nova quantiat que s'assignarà a aquella comanda i clickar al botó de modificar quantiat</p>
+    
+        <img src="/imatges/modificar.png" alt="Logo">
+    </div>
+
+    <div class="apartat">
+        <h1>Visualització de compte</h1>
+
+        <p>Farà falta escollir la taula de la que vulguem saber el preu total del compte i el preu individual de cada persona. Quan una taula ja estigui selecinadaes clickarà sobre el botó "Mostrar compte"</p>
+    
+        <img src="/imatges/compte.png" alt="Logo">
+    </div>
+
+    <div class="apartat">
+        <h1>Neteja de comandes</h1>
+
+        <p>Si volem netejar una taa, és a dir, esborrar totes les comandes d'una taula, seleccionem la taulaal combobox i clickem a sobre de "Finalitzar taula"</p>
+    
+        <img src="/imatges/final.png" alt="Logo">
+    </div>
+
+</body>
+</html>

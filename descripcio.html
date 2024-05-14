@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Documentació App TaulaFacil</title>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="Imatges_P1/Favicon.ico" type="image/x-icon"/>
+  
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #ffffff, #87CEEB); /* Fondo degradado azul y blanco */
+            background-repeat: no-repeat; /* Evita que se repita el fondo */
+            background-attachment: fixed; /* Fija el fondo al visualizarlo en pantallas */
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+        .content {
+            display: none;
+        }
+        .content.active {
+            display: block;
+        }
+        .project-info {
+            margin: 20px;
+            padding: 20px;
+            text-align: justify;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Estilo de fuente */
+            font-size: 18px; /* Tamaño de fuente */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="App.html" title="Anar al document d'inici">Inici</a>
+            <a href="descripcio.html" title="Anar al document de descripció">Descripció</a>
+            <a href="cronograma.html" title="Anar al document de cronograma">Cronograma</a>
+            <a href="disseny.html" title="Anar al document de disseny">Disseny</a>
+            <a href="uml.html" title="Anar al document de UML">UML</a>
+            <a href="manual.html" title="Anar al document de manual">Manual</a>
+            <a href="incidents.html" title="Anar al document d'incidents">Incidents</a>
+        </nav>
+    </header>
+
+    <div class="project-info">
+        <h2>Descripció del projecte</h2>
+        <h3>Descripció:</h3>
+        <p>El projecte consisteix en el desenvolupament d'una aplicació de gestió de comandes per a un restaurant mitjançant una aplicació Java. Aquest sistema permetrà als cambrers gestionar les comandes de manera eficient i mantenir un control sobre els productes i el compte de cada taula.</p>
+        <h3>Característiques principals:</h3>
+        <p>
+            <strong>Gestió d'Usuaris:</strong> El sistema permetrà als cambrers registrar-se amb un usuari i contrasenya únics. Cada cambrer tindrà un nom d'usuari, contrasenya i un identificador únic al sistema.
+            <br>
+            <strong>Gestió de Taules:</strong> El sistema mantindrà un registre de les taules disponibles al restaurant. Cada taula estarà identificada per un número únic. Les taules tindran informació sobre el nombre de clients, el preu total de la comanda i l'identificador del cambrer assignat.
+            <br>
+            <strong>Gestió de Productes:</strong> El sistema tindrà una llista de productes disponibles al restaurant. Cada producte estarà format per un nom, un preu i un identificador únic. Aquests productes seran utilitzats per a generar les comandes dels clients.
+            <br>
+            <strong>Comandes:</strong> El sistema permetrà als cambrers afegir productes a les diferents taules que tinguin seleccionades i vinculades al seu ID. Cada comanda estarà associada a una taula i inclourà els productes sol·licitats i la quantitat de cada producte. Les comandes s'actualitzaran amb el preu total de la comanda a mesura que s'afegeixin productes.
+        </p>
+        <h3>Objectius del Projecte:</h3>
+        <p>L'objectiu d'aquest projecte és proporcionar una aplicació de gestió de comandes eficient per a un restaurant, permetent als cambrers gestionar les comandes dels clients de manera efectiva i mantenir un control detallat de les taules i els productes disponibles al local. L’objectiu principal de l’aplicació millorarà la productivitat del personal del restaurant permetent portar un control dels productes i el preu total de cadascuna de les taules del local.</p>
+    </div>
+    
+    <!-- Continua con el contenido de los otros apartados -->
+
+</body>
+</html>

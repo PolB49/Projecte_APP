@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Documentació App TaulaFacil</title>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="Imatges_P1/Favicon.ico" type="image/x-icon"/>
+  
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(to bottom, #ffffff, #87CEEB); /* Fondo degradado azul y blanco */
+        }
+        .logo {
+            margin-right: 20px; /* Margen derecho del logo */
+        }
+        .logo img {
+            width: 200px; /* Ancho del logo */
+        }
+        .title {
+            color: #333; /* Color del título */
+            font-size: 24px; /* Tamaño del título */
+            margin-right: 20px; /* Margen derecho del título */
+        }
+        nav {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            width: 300px; /* Ancho del menú */
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+            margin-bottom: 10px; /* Espacio entre opciones */
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+        .content {
+            display: none;
+        }
+        .content.active {
+            display: block;
+        }
+        .footer {
+            position: fixed; /* Fijar el footer en la parte inferior */
+            bottom: 0; /* Posicionar el footer al fondo */
+            width: 100%; /* Ancho completo */
+            background-color: #333; /* Color de fondo del footer */
+            color: #fff; /* Color de texto del footer */
+            text-align: center; /* Alineación del texto */
+            padding: 10px 0; /* Espaciado interior del footer */
+        }
+    </style>
+</head>
+<body>
+    <div class="title">
+        <h1>TaulaFàcil</h1>
+    </div>
+    <div class="logo">
+        <img src="/imatges/Logo.png" alt="Logo">
+    </div>
+    <nav>
+        <h1><a href="descripcio.html" title="Anar al document de descripció">Descripció i objectius del projecte</a></h1>
+        <h1><a href="cronograma.html" title="Anar al document de cronograma">Cronograma</a></h1>
+        <h1><a href="disseny.html" title="Anar al document de disseny">Disseny de BD</a></h1>
+        <h1><a href="uml.html" title="Anar al document de UML">UML</a></h1>
+        <h1><a href="manual.html" title="Anar al document de manual">Manual d'ús</a></h1>
+        <h1><a href="incidents.html" title="Anar al document d'incidents">Incidents i problemes</a></h1>
+    </nav>
+
+    <footer class="footer">
+        <p>Pol Buqueras Vernet - DAM 1A - 2023 / 24</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Documentació App TaulaFacil</title>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="Imatges_P1/Favicon.ico" type="image/x-icon"/>
+  
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #ffffff, #87CEEB); /* Fondo degradado azul y blanco */
+            background-repeat: no-repeat; /* Evita que se repita el fondo */
+            background-attachment: fixed; /* Fija el fondo al visualizarlo en pantallas */
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+        .content {
+            display: none;
+        }
+        .content.active {
+            display: block;
+        }
+        .error {
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="App.html" title="Anar al document d'inici">Inici</a>
+            <a href="descripcio.html" title="Anar al document de descripció">Descripció</a>
+            <a href="cronograma.html" title="Anar al document de cronograma">Cronograma</a>
+            <a href="disseny.html" title="Anar al document de disseny">Disseny</a>
+            <a href="uml.html" title="Anar al document de UML">UML</a>
+            <a href="manual.html" title="Anar al document de manual">Manual</a>
+            <a href="incidents.html" title="Anar al document d'incidents">Incidents</a>
+        </nav>
+    </header>
+
+    <div class="error">
+        <h2>ERROR 1</h2>
+        <h5>Falta de dependències</h5>
+        <code>requires java.sql; 
+requires javafx.swing;
+requires java.desktop; 
+requires javafx.base;</code>
+        <p>Dins del document “module-info”, faltaven dependències de java que s'haurien d'haver importat automàticament al modificar el pom per conectar amb la base de dades. Per aluna raó, aqueses dependencies no es van importar i es va haver de fer manualment. 
+           <br> Principalment aquestes dependències provocaven un error que evitava fer els imports necessaris per a la connexió de base de dades.</p>
+    </div>
+
+    <div class="error">
+        <h2>ERROR 2</h2>
+        <h5>Import incorrecte</h5>
+        <p><strong>El TextField no es detectat i no s'inicia l'aplicació</strong></p>
+        <img src="/imatges/error1.png" alt="error1">
+        <p>Per solucionar-ho s’ha de fer l’import correcte.</p>
+        <img src="/imatges/error2.png" alt="error2">
+        <p>Aquest error va apareixer a l'inici del desenvolupament de l'aplicació. Principalment va estar causat per una distracció a l'hora de seleccionar l'import, ja que es van seleccionar unes dependencies diferents a les necesaries per a JAVA FX</p>
+    </div>
+
+    <div class="error">
+        <h2>ERROR 3</h2>
+        <h5>Classe estàtica</h5>
+        <p>Error del cambrer Actual. Al moment d'iniciar sessió o registrar-se a la app, les dades del cambrer s'haurien d'emmagatzemar en forma de clase "Cambrer". Dins del model, es té una variable anomenada "Cambrer Actual". Aquesta variable retorna una instancia de la classe "Cambrer" que representa el cambrer el qual ha iniciat sessió. 
+            Fins que s'arriba al "TerciaryControll" aquesta variable es nula, llavors es quan s'actualitza amb les noves dades. L'error es trobava que si la variable "Camber Actual" no es declarava com a estàtica, les dades s'actualitzaven pero no es guardaven i per tant, segui notificant com que el "Cambrer Actual" era una variable nula.</p>
+    </div>
+
+    <div class="error">
+        <h2>ERROR 4</h2>
+        <h5>ListView no mostrava el preu</h5>
+        <p>Al listview de les comandes no es mostrava el preu unitari, ja que al recopilar el observable list de comandes, no es feia un join a la base de dades entre les taules "comandes" i "producte". Per tant, no es podia recuperar el preu individual de cada producte i es mostrava el preu implementat per defecte és a d, 0.00€</p>
+    </div>
+
+</body>
+</html>
