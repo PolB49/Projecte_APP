@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Documentació App TaulaFacil</title>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="Imatges_P1/Favicon.ico" type="image/x-icon"/>
+  
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #ffffff, #87CEEB); /* Fondo degradado azul y blanco */
+            background-repeat: no-repeat; /* Evita que se repita el fondo */
+            background-attachment: fixed; /* Fija el fondo al visualizarlo en pantallas */
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+        .content {
+            display: none;
+        }
+        .content.active {
+            display: block;
+        }
+        .project-info {
+            margin: 20px;
+            padding: 20px;
+            text-align: justify;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Estilo de fuente */
+            font-size: 18px; /* Tamaño de fuente */
+        }
+        .sql-code {
+            font-family: "Courier New", Courier, monospace; /* Estilo de fuente monoespaciada para el código SQL */
+            font-size: 16px; /* Tamaño de fuente */
+            background-color: #f4f4f4; /* Color de fondo para resaltar el código */
+            padding: 10px; /* Espaciado interno */
+            margin-top: 10px; /* Espaciado superior */
+            white-space: pre-wrap; /* Permite el salto de línea */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="App.html" title="Anar al document d'inici">Inici</a>
+            <a href="descripcio.html" title="Anar al document de descripció">Descripció</a>
+            <a href="cronograma.html" title="Anar al document de cronograma">Cronograma</a>
+            <a href="disseny.html" title="Anar al document de disseny">Disseny</a>
+            <a href="uml.html" title="Anar al document de UML">UML</a>
+            <a href="manual.html" title="Anar al document de manual">Manual</a>
+            <a href="incidents.html" title="Anar al document d'incidents">Incidents</a>
+        </nav>
+    </header>
+
+    <div class="project-info" id="model_conceptual">
+        <h2>Model conceptual (Diagrama E-R)</h2>
+        <img src="/imatges/Conceptual.png" alt="Diagrama E-R">
+    </div>
+    
+
+    <div class="project-info" id="model_logic_relacional">
+        <h2>Model logic-relacional</h2>
+        <div class="sql-code">
+            <pre>
+
+                CAMBRER (<u>Nom</u>, Contrasenya)
+
+                TAULA (<u>Nom_Taula</u>, Num_Clients, Cambrer_associat)
+                
+                    TAULA.Cambrer_associat és clau alièna de CAMBRER
+                
+                PRODUCTE (<u>Nom</u>, Preu)
+                
+                COMANDA (<u>ID</u>, Cambrer, Taula, Producte, Quantitat)
+                
+                    COMANDA.Cambrer és clau alièna de CAMBRER
+                
+                COMANDA.Taula és clau alièna de TAULA
+                
+                COMANDA.Producte és clau alièna de PRODUCTE
+                
+            </pre>
+        </div>
+    </div>
+
+    <div class="project-info" id="disseny_fisic">
+        <h2>Disseny físic</h2>
+        <div class="sql-code">
+            <pre>
+                -- Crear taula CAMBRER
+                CREATE TABLE Cambrer (
+                Nom VARCHAR(50) PRIMARY KEY,
+                Contrasenya VARCHAR(50)
+                );
+
+                -- Crear taula TAULA
+                CREATE TABLE Taula (
+    Nom_Taula  VARCHAR(50) PRIMARY KEY,
+    Num_Clients INT,
+    Cambrer_associat VARCHAR(50),
+    FOREIGN KEY (Cambrer_associat) REFERENCES Cambrer(Nom) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- Crear taula PRODUCTE
+CREATE TABLE Producte (
+    Nom VARCHAR(50) PRIMARY KEY,
+    Preu DOUBLE
+);
+
+-- Crear taula COMANDA
+CREATE TABLE Comanda (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Cambrer VARCHAR(50),
+    Taula VARCHAR(50),
+    Producte VARCHAR(50),
+    Quantitat INT,
+    FOREIGN KEY (Cambrer) REFERENCES Cambrer(Nom) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (Taula) REFERENCES Taula(Nom_Taula) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (Producte) REFERENCES Producte(Nom) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- Inserts de Taules del Restuarant
+
+INSERT INTO Taula (Nom_Taula, Num_Clients, Cambrer_associat) VALUES ("Taula 1", NULL, NULL);
+INSERT INTO Taula (Nom_Taula, Num_Clients, Cambrer_associat) VALUES ("Taula 2", NULL, NULL);
+INSERT INTO Taula (Nom_Taula, Num_Clients, Cambrer_associat) VALUES ("Taula 3", NULL, NULL);
+INSERT INTO Taula (Nom_Taula, Num_Clients, Cambrer_associat) VALUES ("Taula 4", NULL, NULL);
+INSERT INTO Taula (Nom_Taula, Num_Clients, Cambrer_associat) VALUES ("Taula 5", NULL, NULL);
+
+-- Inserts de Productes del Restuarant
+
+INSERT INTO Producte (Nom, Preu) VALUES ('Paella de marisc', 15.50);
+INSERT INTO Producte (Nom, Preu) VALUES ('Entrecot a la brasa', 18.75);
+INSERT INTO Producte (Nom, Preu) VALUES ('Pasta carbonara', 12.99);
+INSERT INTO Producte (Nom, Preu) VALUES ('Amanida César', 9.95);
+INSERT INTO Producte (Nom, Preu) VALUES ('Salmó al forn', 16.25);
+INSERT INTO Producte (Nom, Preu) VALUES ('Pizza Margarita', 10.50);
+INSERT INTO Producte (Nom, Preu) VALUES ('Hamburguesa clàssica', 8.99);
+INSERT INTO Producte (Nom, Preu) VALUES ('Coca-Cola', 2.00);
+INSERT INTO Producte (Nom, Preu) VALUES ('Cerveza Estrella Damm', 2.50);
+INSERT INTO Producte (Nom, Preu) VALUES ('Aigua mineral', 1.50);
+            </pre>
+        </div>
+    </div>
+
+</body>
+</html>
