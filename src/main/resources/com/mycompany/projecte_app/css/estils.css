@@ -1,27 +1,54 @@
-/* Estilo del fondo degradado */
+/* Fons de color degradat entre blanc i blau */
 .root {
     -fx-background-color: linear-gradient(to bottom, #ffffff, #87CEEB); /* Fondo degradado azul y blanco */
 }
 
-/* Estilo de los botones */
+/* Botons */
 .button {
-    -fx-background-color: #FFF484; /* Fondo amarillo pastel suave para los botones */
-    -fx-text-fill: #000000; /* Texto negro */
+    -fx-background-color: #FFF484; /* Fons groc fluix*/
+    -fx-text-fill: #000000; /* El text es de color negre*/
     -fx-font-size: 16px;
     -fx-padding: 10px 20px;
-    -fx-cursor: hand;
+    -fx-cursor: hand; /* El cursor es una à quan el ratoli està a sobre*/
     -fx-border-radius: 5px;
 }
 
+/* Botons quan el coursor està a sobre*/
 .button:hover {
-    -fx-background-color: #D4FF58; /* Cambio de color al pasar el ratón */
+    -fx-background-color: #D4FF58; /* Canvi de color al pasar el ratolí */
 }
 
-/* Estilo de los text areas */
+/* TextArea */
 .text-area {
-    -fx-font-size: 20px; /* Tamaño de letra grande */
-    -fx-alignment: center; /* Texto centrado tanto vertical como horizontalmente */
+    -fx-font-size: 20px;
+    -fx-alignment: center; /* Texto centrat */
     -fx-padding: 10px;
     -fx-border-radius: 5px;
-    -fx-border-color: #ccc; /* Borde gris claro */
+    -fx-border-color: #ccc; /* Bora clara */
+}
+
+/* Labels*/
+.label {
+    -fx-font-family: "Impact"; /* Canvi de tipus de lletra */
+    -fx-font-size: 18px; /* Canvi de grandària del text */
+}
+
+/* Label de títol */
+.titol {
+    -fx-font-family: "Arial Black"; /* Canvi de tipus de lletra */
+    -fx-font-size: 49px; /* Canvi de grandària del text */
+     -fx-font-style: italic;
+}
+
+/* Labels de subtitul inici sessió o registre */
+.pantalla {
+    -fx-font-family: "Arial Black"; /* Canvi de tipus de lletra */
+    -fx-font-size: 18px; /* Canvi de grandària del text */
+    -fx-underline: true;
+}
+
+/* Labels del 3r controlador */
+.label3r {
+    -fx-font-family: "Impact"; /* Canvi de tipus de lletra */
+    -fx-font-size: 15px; /* Canvi de grandària del text */
 }

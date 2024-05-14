@@ -5,20 +5,28 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="546.0" prefWidth="754.0" spacing="20.0" stylesheets="@css/estils.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.projecte_app.PrimaryController">
+<VBox alignment="CENTER" prefHeight="546.0" prefWidth="754.0" spacing="20.0" stylesheets="@css/estils.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.projecte_app.PrimaryController">
    <children>
       <AnchorPane prefHeight="506.0" prefWidth="744.0">
          <children>
-            <Button fx:id="primaryButton2" layoutX="286.0" layoutY="331.0" onAction="#ValidarCambrer" text="Iniciar Sessio" />
-            <Label layoutX="334.0" layoutY="90.0" text="Usuari:" />
-            <Label layoutX="314.0" layoutY="191.0" text="Contrasenya:" />
-            <Button fx:id="primaryButton11" layoutX="290.0" layoutY="407.0" onAction="#Registrarse" text="Registrar-se" />
-            <Label layoutX="307.0" layoutY="20.0" prefHeight="16.0" prefWidth="100.0" text="Inici de Sessio" />
-            <TextField fx:id="TextUsuari" layoutX="272.0" layoutY="126.0" />
-            <PasswordField fx:id="TextContrasenya" layoutX="272.0" layoutY="241.0" />
+            <Button fx:id="primaryButton2" layoutX="437.0" layoutY="354.0" onAction="#ValidarCambrer" text="Iniciar sessió" />
+            <Label layoutX="477.0" layoutY="120.0" text="Usuari:" />
+            <Label layoutX="454.0" layoutY="215.0" text="Contrasenya:" />
+            <Button fx:id="primaryButton11" layoutX="437.0" layoutY="427.0" onAction="#Registrarse" prefHeight="45.0" prefWidth="131.0" text="Registrar-se" />
+            <Label fx:id="Pantalla" layoutX="428.0" layoutY="64.0" prefHeight="27.0" prefWidth="150.0" styleClass="pantalla" text="Inici de Sessió" />
+            <TextField fx:id="TextUsuari" layoutX="428.0" layoutY="153.0" />
+            <PasswordField fx:id="TextContrasenya" layoutX="428.0" layoutY="252.0" />
+            <ImageView fx:id="Logo" fitHeight="150.0" fitWidth="200.0" layoutX="109.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@imatges/Logo.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="Nom" layoutX="44.0" layoutY="341.0" styleClass="titol" text="TaulaFàcil" />
          </children>
       </AnchorPane>
    </children>

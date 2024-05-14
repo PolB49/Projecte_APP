@@ -193,7 +193,7 @@ public class GestioDades {
             }
             
             this.associaCambrerTaula(CambrerActual, taula);
-            ok2 = true; // Marca la operación como exitosa
+            ok2 = true; // Marca la operació com exitosa
             
         } catch (SQLException e) {
             e.printStackTrace();

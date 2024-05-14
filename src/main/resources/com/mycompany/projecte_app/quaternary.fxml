@@ -5,24 +5,31 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="568.0" prefWidth="691.0" spacing="20.0" stylesheets="@css/estils.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.projecte_app.QuaternaryControll">
+<VBox alignment="CENTER" prefHeight="568.0" prefWidth="691.0" spacing="20.0" stylesheets="@css/estils.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.projecte_app.QuaternaryControll">
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
    <children>
       <AnchorPane prefHeight="527.0" prefWidth="651.0">
          <children>
-            <ComboBox fx:id="ComboTaula" layoutX="95.0" layoutY="116.0" prefWidth="150.0" />
-            <TextArea fx:id="QuantitatTotal" editable="false" layoutX="101.0" layoutY="264.0" prefHeight="59.0" prefWidth="138.0" />
-            <TextArea fx:id="QuantitatPersona" editable="false" layoutX="447.0" layoutY="264.0" prefHeight="81.0" prefWidth="138.0" />
-            <Label layoutX="142.0" layoutY="223.0" text="Compte:" />
-            <Label layoutX="447.0" layoutY="223.0" text="Compte per persona:" />
-            <Button layoutX="431.0" layoutY="108.0" mnemonicParsing="false" onAction="#ActualitzarPreus" text="Mostrar Compte" />
-            <Button layoutX="262.0" layoutY="26.0" mnemonicParsing="false" onAction="#panellPrincipal" text="Panell Principal" />
-            <Button layoutX="262.0" layoutY="417.0" mnemonicParsing="false" onAction="#FinalitzarTaula" text="Finalitzar Taula" />
+            <ComboBox fx:id="ComboTaula" layoutX="75.0" layoutY="183.0" prefWidth="150.0" />
+            <TextArea fx:id="QuantitatTotal" editable="false" layoutX="478.0" layoutY="154.0" prefHeight="59.0" prefWidth="138.0" />
+            <TextArea fx:id="QuantitatPersona" editable="false" layoutX="478.0" layoutY="367.0" prefHeight="81.0" prefWidth="138.0" />
+            <Label layoutX="517.0" layoutY="89.0" text="Compte:" />
+            <Label layoutX="471.0" layoutY="325.0" text="Compte per persona:" />
+            <Button layoutX="72.0" layoutY="291.0" mnemonicParsing="false" onAction="#ActualitzarPreus" text="Mostrar Compte" />
+            <Button layoutX="76.0" layoutY="66.0" mnemonicParsing="false" onAction="#panellPrincipal" text="Panell Principal" />
+            <Button layoutX="77.0" layoutY="396.0" mnemonicParsing="false" onAction="#FinalitzarTaula" text="Finalitzar Taula" />
+            <ImageView fitHeight="148.0" fitWidth="175.0" layoutX="277.0" layoutY="196.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@imatges/Compte.jpg" />
+               </image>
+            </ImageView>
             
          </children>
       </AnchorPane>
