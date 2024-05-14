@@ -72,7 +72,8 @@ public class TerciaryControll {
     }
 
     public void BotoAfegir() {
-        if (!ComboTaula.getItems().isEmpty() && !ComboProducte.getItems().isEmpty() && !NumeroClients.getText().isEmpty() && !QuantitatProducte.getText().isEmpty()) {
+        if (!ComboTaula.getItems().isEmpty() && !ComboProducte.getItems().isEmpty() && !NumeroClients.getText().isEmpty() && !QuantitatProducte.getText().isEmpty()
+                && Integer.parseInt(NumeroClients.getText()) >= 1 && Integer.parseInt(QuantitatProducte.getText()) >= 1) {
             try {
                 // Intenta convertir el text de NumeroClients a un enter
                 int numClients = Integer.parseInt(NumeroClients.getText());
@@ -129,7 +130,7 @@ public class TerciaryControll {
     }
     
     public void modificarComanda() {
-        if (!TextCompte.getSelectionModel().isEmpty() && !NovaQuantitat.getText().isEmpty()) {
+        if (!TextCompte.getSelectionModel().isEmpty() && !NovaQuantitat.getText().isEmpty() && Integer.parseInt(NovaQuantitat.getText()) >= 1) {
             try {
                 Comanda comandaSeleccionada = (Comanda) TextCompte.getSelectionModel().getSelectedItem();
                 int novaQuantitat = Integer.parseInt(NovaQuantitat.getText());
@@ -149,6 +150,7 @@ public class TerciaryControll {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("SELECCIONA UNA COMANDA");
             alert.setHeaderText("Has de seleccionar la comanda a modificar i indicar una nova quantitat.");
+            alert.setHeaderText("La quantitat ha de ser major o igual a 1");
             Optional<ButtonType> result = alert.showAndWait();
         }
     }

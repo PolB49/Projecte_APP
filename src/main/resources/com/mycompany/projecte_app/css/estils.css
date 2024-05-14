@@ -5,8 +5,8 @@
 
 /* Estilo de los botones */
 .button {
-    -fx-background-color: #ADD8E6; /* Fondo azul cian claro para los botones */
-    -fx-text-fill: #ffffff; /* Texto blanco */
+    -fx-background-color: #FFF484; /* Fondo amarillo pastel suave para los botones */
+    -fx-text-fill: #000000; /* Texto negro */
     -fx-font-size: 16px;
     -fx-padding: 10px 20px;
     -fx-cursor: hand;
@@ -14,13 +14,13 @@
 }
 
 .button:hover {
-    -fx-background-color: #5F9EA0; /* Cambio de color al pasar el ratón */
+    -fx-background-color: #D4FF58; /* Cambio de color al pasar el ratón */
 }
 
 /* Estilo de los text areas */
 .text-area {
     -fx-font-size: 20px; /* Tamaño de letra grande */
-    -fx-text-alignment: center; /* Texto centrado en el centro del text area */
+    -fx-alignment: center; /* Texto centrado tanto vertical como horizontalmente */
     -fx-padding: 10px;
     -fx-border-radius: 5px;
     -fx-border-color: #ccc; /* Borde gris claro */
